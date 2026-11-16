@@ -6,11 +6,11 @@
     <title>สุขสันต์วันครบรอบ 3 ปี 3 เดือน 💙</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Mali & Prompt สำหรับภาษาไทยที่น่ารักและอ่านง่าย -->
+    <!-- Google Fonts: Mali & Prompt -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Mali:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <!-- Font Awesome สำหรับไอคอนน่ารักๆ -->
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <script>
@@ -53,7 +53,6 @@
             font-family: 'Mali', cursive;
         }
 
-        /* พื้นหลัง Canvas */
         #bg-canvas {
             position: fixed;
             top: 0;
@@ -64,11 +63,12 @@
             z-index: 0;
         }
 
-        /* เอฟเฟกต์ซองจดหมายหน้าแรก */
+        /* ซองจดหมายหน้าแรก */
         .envelope-wrapper {
             perspective: 1000px;
             cursor: pointer;
             touch-action: manipulation;
+            user-select: none;
         }
 
         .envelope {
@@ -77,9 +77,8 @@
             height: 200px;
             background: #80DEEA;
             border-radius: 16px;
-            box-shadow: 0 15px 35px rgba(38, 198, 218, 0.25);
-            transition: transform 0.6s ease;
-            cursor: pointer;
+            box-shadow: 0 15px 35px rgba(38, 198, 218, 0.28);
+            transition: transform 0.5s ease;
         }
 
         @media (min-width: 640px) {
@@ -104,7 +103,7 @@
             border-top: 115px solid #4DD0E1;
             border-radius: 16px 16px 0 0;
             transform-origin: top;
-            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: 3;
             pointer-events: none;
         }
@@ -154,8 +153,8 @@
             border-radius: 12px;
             padding: 16px;
             text-align: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            transition: transform 0.8s ease 0.3s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+            transition: transform 0.7s ease 0.25s;
             z-index: 1;
             display: flex;
             flex-direction: column;
@@ -165,7 +164,7 @@
         }
 
         .envelope.open .envelope-letter {
-            transform: translateY(-90px);
+            transform: translateY(-85px);
             z-index: 4;
         }
 
@@ -183,7 +182,7 @@
             justify-content: center;
             box-shadow: 0 4px 12px rgba(0, 172, 193, 0.3);
             z-index: 4;
-            transition: opacity 0.4s ease, transform 0.4s ease;
+            transition: opacity 0.35s ease, transform 0.35s ease;
             animation: pulse-gentle 2s infinite;
             pointer-events: none;
         }
@@ -204,12 +203,12 @@
             50% { transform: translate(-50%, -50%) scale(1.1); }
         }
 
-        /* การ์ดกระจกฝ้า (Glassmorphism) */
+        /* การ์ดกระจกฝ้า */
         .glass-card {
-            background: rgba(255, 255, 255, 0.78);
+            background: rgba(255, 255, 255, 0.8);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            border: 2px solid rgba(255, 255, 255, 0.9);
+            border: 2px solid rgba(255, 255, 255, 0.92);
             box-shadow: 0 10px 30px rgba(128, 222, 234, 0.25);
         }
 
@@ -241,7 +240,6 @@
             50% { opacity: 0; }
         }
 
-        /* อนิเมชันลอยตัว */
         @keyframes floatSlow {
             0%, 100% { transform: translateY(0px); }
             50% { transform: translateY(-8px); }
@@ -250,7 +248,6 @@
             animation: floatSlow 3.5s ease-in-out infinite;
         }
 
-        /* อนิเมชันหัวใจพุ่งเมื่อกดส่งความรัก */
         @keyframes flyUpHeart {
             0% {
                 transform: translateY(0) scale(0.5) rotate(0deg);
@@ -269,7 +266,6 @@
             animation: flyUpHeart 3s ease-out forwards;
         }
 
-        /* Custom Scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -292,7 +288,7 @@
 
     <!-- ปุ่มควบคุมเสียงเพลงกล่องดนตรี (มุมขวาบน) -->
     <div class="fixed top-4 right-4 z-50 flex items-center gap-2">
-        <button id="music-toggle-btn" type="button" class="glass-card px-4 py-2.5 rounded-full flex items-center gap-2 text-pastel-text hover:bg-white transition-all shadow-md active:scale-95 cursor-pointer" title="เปิด/ปิดเพลงกล่องดนตรี">
+        <button id="music-toggle-btn" type="button" onclick="toggleMusic()" class="glass-card px-4 py-2.5 rounded-full flex items-center gap-2 text-pastel-text hover:bg-white transition-all shadow-md active:scale-95 cursor-pointer" title="เปิด/ปิดเพลงกล่องดนตรี">
             <i id="music-icon" class="fa-solid fa-volume-xmark text-pastel-500 text-lg"></i>
             <span id="music-label" class="text-xs sm:text-sm font-medium">เปิดเพลงคลอ</span>
         </button>
@@ -303,7 +299,7 @@
     <!-- ========================================================= -->
     <section id="welcome-screen" class="fixed inset-0 z-40 flex flex-col items-center justify-center p-6 bg-gradient-to-br from-[#F0FBFF] via-[#E0F7FA] to-[#B2EBF2] transition-opacity duration-700">
         <div class="text-center mb-8 animate-float">
-            <span class="inline-block px-4 py-1.5 rounded-full bg-white/80 text-pastel-600 text-xs sm:text-sm font-semibold shadow-sm mb-3">
+            <span class="inline-block px-4 py-1.5 rounded-full bg-white/85 text-pastel-600 text-xs sm:text-sm font-semibold shadow-sm mb-3">
                 ✨ Special Delivery For You ✨
             </span>
             <h1 class="text-2xl sm:text-4xl font-bold text-pastel-text">
@@ -314,8 +310,8 @@
             </p>
         </div>
 
-        <!-- ซองจดหมาย -->
-        <div id="envelope-trigger" class="envelope-wrapper" role="button" tabindex="0" aria-label="เปิดซองจดหมาย">
+        <!-- ซองจดหมาย (คลิกได้ทั้งกล่อง) -->
+        <div id="envelope-trigger" onclick="openEnvelope()" class="envelope-wrapper" role="button" tabindex="0" aria-label="เปิดซองจดหมาย">
             <div id="envelope" class="envelope">
                 <div class="envelope-flap"></div>
                 <div class="heart-seal">
@@ -329,7 +325,7 @@
             </div>
         </div>
 
-        <button id="open-envelope-btn" type="button" class="mt-10 px-7 py-3.5 bg-pastel-500 hover:bg-pastel-600 text-white font-cute font-semibold rounded-full shadow-lg shadow-pastel-400/40 transition-all transform hover:scale-105 active:scale-95 flex items-center gap-2 cursor-pointer touch-manipulation">
+        <button id="open-envelope-btn" type="button" onclick="openEnvelope()" class="mt-10 px-7 py-3.5 bg-pastel-500 hover:bg-pastel-600 text-white font-cute font-semibold rounded-full shadow-lg shadow-pastel-400/40 transition-all transform hover:scale-105 active:scale-95 flex items-center gap-2 cursor-pointer touch-manipulation">
             <i class="fa-solid fa-envelope-open-text"></i>
             <span>เปิดซองจดหมาย</span>
         </button>
@@ -340,7 +336,7 @@
     <!-- ========================================================= -->
     <main id="main-content" class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 pt-16 pb-24 opacity-0 hidden transition-opacity duration-1000">
         
-        <!-- 1. ส่วนหัว (Hero Header) -->
+        <!-- 1. ส่วนหัว -->
         <header class="text-center mb-12">
             <div class="inline-flex items-center gap-2 px-5 py-2 rounded-full glass-card text-pastel-600 font-semibold text-xs sm:text-sm mb-4 animate-float">
                 <i class="fa-solid fa-cloud text-pastel-400"></i>
@@ -358,28 +354,16 @@
             </p>
         </header>
 
-        <!-- 2. ตัวนับเวลาที่คบกันมาแบบเรียลไทม์ (Real-time Counter) -->
+        <!-- 2. ตัวนับเวลาที่คบกันมาแบบเรียลไทม์ -->
         <section class="glass-card rounded-3xl p-6 sm:p-8 mb-12 relative overflow-hidden">
-            <!-- ตกแต่งมุมการ์ด -->
             <div class="absolute -top-6 -right-6 w-24 h-24 bg-pastel-200/40 rounded-full blur-xl pointer-events-none"></div>
             <div class="absolute -bottom-6 -left-6 w-24 h-24 bg-pastel-300/40 rounded-full blur-xl pointer-events-none"></div>
 
-            <div class="flex flex-col sm:flex-row items-center justify-between gap-2 mb-6">
-                <div class="flex items-center gap-2.5">
-                    <div class="w-10 h-10 rounded-2xl bg-pastel-100 flex items-center justify-center text-pastel-500">
-                        <i class="fa-solid fa-clock text-lg"></i>
-                    </div>
-                    <div>
-                        <h2 class="text-xl sm:text-2xl font-bold text-pastel-text">เวลาที่เราเดินทางมาด้วยกัน</h2>
-                        <p id="start-date-display" class="text-xs text-pastel-subtext">เริ่มต้นตั้งแต่วันที่: ...</p>
-                    </div>
+            <div class="flex items-center justify-center sm:justify-start gap-3 mb-6">
+                <div class="w-11 h-11 rounded-2xl bg-pastel-100 flex items-center justify-center text-pastel-500 shrink-0">
+                    <i class="fa-solid fa-clock text-lg"></i>
                 </div>
-
-                <!-- ปุ่มตั้งค่าวันที่เริ่มคบ -->
-                <button type="button" onclick="openDateModal()" class="px-3.5 py-1.5 rounded-full bg-pastel-100 hover:bg-pastel-200 text-pastel-600 text-xs font-medium transition-colors flex items-center gap-1.5 cursor-pointer">
-                    <i class="fa-solid fa-gear"></i>
-                    <span>ตั้งค่าวันเริ่มคบ</span>
-                </button>
+                <h2 class="text-xl sm:text-2xl font-bold text-pastel-text">เวลาที่เราเดินทางมาด้วยกัน</h2>
             </div>
 
             <!-- กล่องแสดงตัวเลขเวลา -->
@@ -410,14 +394,17 @@
                 </div>
             </div>
 
-            <div class="mt-5 text-center">
+            <div class="mt-5 flex flex-wrap items-center justify-center gap-2 text-center">
                 <p id="total-days-badge" class="inline-block px-4 py-1.5 rounded-full bg-pastel-100/80 text-pastel-600 text-xs sm:text-sm font-medium">
-                    รวมทั้งหมดกว่า 1,187 วันแห่งความรัก 🩵
+                    รวมทั้งหมด 1,187 วันแห่งความรัก 🩵
+                </p>
+                <p id="total-hours-badge" class="inline-block px-4 py-1.5 rounded-full bg-white/90 border border-pastel-200 text-pastel-600 text-xs sm:text-sm font-medium">
+                    หรือ 28,488 ชั่วโมงที่อยู่ด้วยกัน ⏰💙
                 </p>
             </div>
         </section>
 
-        <!-- 3. การ์ดความทรงจำ / แกลเลอรีรูปภาพ Polaroid -->
+        <!-- 3. การ์ดความทรงจำ Polaroid -->
         <section class="mb-12">
             <div class="text-center mb-8">
                 <h2 class="text-2xl sm:text-3xl font-bold text-pastel-text flex items-center justify-center gap-2">
@@ -433,8 +420,7 @@
                 <!-- การ์ดความทรงจำที่ 1 -->
                 <div class="polaroid -rotate-2 cursor-pointer group relative" onclick="showMemoryModal(0)">
                     <div class="relative aspect-square rounded-xl overflow-hidden bg-pastel-100">
-                        <img id="mem-img-0" src="https://i.postimg.cc/MpFsSRQC/Messenger-creation-65220526-A721-4A18-9D63-BD16FB2FE96A.jpg" alt="ความทรงจำวันแรก" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" onerror="this.src='https://placehold.co/400x400/B2EBF2/2C5263?text=Our+First+Day'">
-                        <!-- ปุ่มอัปโหลดรูป -->
+                        <img id="mem-img-0" src="https://i.postimg.cc/MpFsSRQC/Messenger-creation-65220526-A721-4A18-9D63-BD16FB2FE96A.jpg" alt="จุดเริ่มต้นของสองเรา" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" onerror="this.src='https://placehold.co/400x400/B2EBF2/2C5263?text=Chapter+01'">
                         <label onclick="event.stopPropagation()" class="absolute bottom-2 right-2 bg-white/90 hover:bg-white text-pastel-600 w-9 h-9 rounded-full flex items-center justify-center shadow-md cursor-pointer transition-transform hover:scale-110" title="เปลี่ยนรูปภาพนี้">
                             <i class="fa-solid fa-image text-sm"></i>
                             <input type="file" accept="image/*" class="hidden" onchange="uploadPhoto(event, 0)">
@@ -450,8 +436,7 @@
                 <!-- การ์ดความทรงจำที่ 2 -->
                 <div class="polaroid rotate-1 cursor-pointer group relative" onclick="showMemoryModal(1)">
                     <div class="relative aspect-square rounded-xl overflow-hidden bg-pastel-100">
-                        <img id="mem-img-1" src="https://i.postimg.cc/brwYkKvX/Messenger-creation-6DCD0839-72B2-4675-B8CC-7480D92A5CC8.jpg" alt="ครั้งแรกที่เราเจอกัน" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" onerror="this.src='https://placehold.co/400x400/80DEEA/2C5263?text=Sweet+Moments'">
-                        <!-- ปุ่มอัปโหลดรูป -->
+                        <img id="mem-img-1" src="https://i.postimg.cc/brwYkKvX/Messenger-creation-6DCD0839-72B2-4675-B8CC-7480D92A5CC8.jpg" alt="ครั้งแรกที่เราเจอกัน" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" onerror="this.src='https://placehold.co/400x400/80DEEA/2C5263?text=Chapter+02'">
                         <label onclick="event.stopPropagation()" class="absolute bottom-2 right-2 bg-white/90 hover:bg-white text-pastel-600 w-9 h-9 rounded-full flex items-center justify-center shadow-md cursor-pointer transition-transform hover:scale-110" title="เปลี่ยนรูปภาพนี้">
                             <i class="fa-solid fa-image text-sm"></i>
                             <input type="file" accept="image/*" class="hidden" onchange="uploadPhoto(event, 1)">
@@ -467,8 +452,7 @@
                 <!-- การ์ดความทรงจำที่ 3 -->
                 <div class="polaroid -rotate-1 cursor-pointer group relative" onclick="showMemoryModal(2)">
                     <div class="relative aspect-square rounded-xl overflow-hidden bg-pastel-100">
-                        <img id="mem-img-2" src="https://i.postimg.cc/1XBnZGfr/Messenger-creation-D38E946B-AA94-496B-BBBF-E584617E6A38.jpg" alt="ก้าวเข้าสู่เดือนที่ 39" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" onerror="this.src='https://placehold.co/400x400/4DD0E1/FFFFFF?text=3+Years+3+Months'">
-                        <!-- ปุ่มอัปโหลดรูป -->
+                        <img id="mem-img-2" src="https://i.postimg.cc/1XBnZGfr/Messenger-creation-D38E946B-AA94-496B-BBBF-E584617E6A38.jpg" alt="3 ปี 3 เดือน และตลอดไป" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" onerror="this.src='https://placehold.co/400x400/4DD0E1/FFFFFF?text=Chapter+03'">
                         <label onclick="event.stopPropagation()" class="absolute bottom-2 right-2 bg-white/90 hover:bg-white text-pastel-600 w-9 h-9 rounded-full flex items-center justify-center shadow-md cursor-pointer transition-transform hover:scale-110" title="เปลี่ยนรูปภาพนี้">
                             <i class="fa-solid fa-image text-sm"></i>
                             <input type="file" accept="image/*" class="hidden" onchange="uploadPhoto(event, 2)">
@@ -483,7 +467,7 @@
             </div>
         </section>
 
-        <!-- 4. จดหมายรักเอฟเฟกต์พิมพ์ดีด (Love Letter) -->
+        <!-- 4. จดหมายรักเอฟเฟกต์พิมพ์ดีด -->
         <section class="glass-card rounded-3xl p-6 sm:p-10 mb-12 relative">
             <div class="flex items-center justify-between border-b border-pastel-200 pb-4 mb-6">
                 <div class="flex items-center gap-3">
@@ -501,8 +485,7 @@
                 </button>
             </div>
 
-            <!-- พื้นที่ข้อความพิมพ์ดีด -->
-            <div class="bg-white/70 rounded-2xl p-5 sm:p-7 min-h-[220px] border border-pastel-100 shadow-inner">
+            <div class="bg-white/75 rounded-2xl p-5 sm:p-7 min-h-[220px] border border-pastel-100 shadow-inner">
                 <p id="love-letter-text" class="font-cute text-pastel-text text-base sm:text-lg leading-loose whitespace-pre-line typing-cursor"></p>
             </div>
 
@@ -512,7 +495,7 @@
             </div>
         </section>
 
-        <!-- 5. ปุ่มกดส่งความรัก / กอดออนไลน์ (Interactive Love Button) -->
+        <!-- 5. ปุ่มกดส่งความรัก -->
         <section class="text-center glass-card rounded-3xl p-8 sm:p-10">
             <div class="inline-block p-3 rounded-2xl bg-pastel-100 text-pastel-500 mb-3">
                 <i class="fa-solid fa-hand-holding-heart text-2xl sm:text-3xl"></i>
@@ -527,7 +510,6 @@
                 <span>กดส่งความรัก & กอดแน่นๆ</span>
             </button>
 
-            <!-- กล่องแสดงข้อความสุ่มสุดน่ารัก -->
             <div id="love-quote-box" class="mt-6 min-h-[56px] flex items-center justify-center">
                 <p id="love-quote-text" class="font-cute text-pastel-600 font-semibold text-base sm:text-lg bg-white/90 px-6 py-3 rounded-2xl shadow-sm border border-pastel-200 transition-all duration-300">
                     "3 ปี 3 เดือนแล้วนะ ขอบคุณที่เป็นความสบายใจให้กันทุกวันเลย 🩵"
@@ -539,7 +521,6 @@
             </div>
         </section>
 
-        <!-- Footer -->
         <footer class="mt-14 text-center text-pastel-subtext text-xs sm:text-sm">
             <p class="font-cute">Made with 💙 for our 3 Years & 3 Months Anniversary</p>
         </footer>
@@ -549,7 +530,7 @@
     <!-- Modal 1: แสดงข้อความพิเศษในการ์ดความทรงจำ -->
     <!-- ========================================================= -->
     <div id="memory-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-pastel-text/40 backdrop-blur-sm transition-opacity" onclick="if(event.target === this) closeMemoryModal()">
-        <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl border-2 border-pastel-200 transform transition-all" id="memory-modal-content">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl border-2 border-pastel-200 transform transition-all">
             <div class="flex justify-between items-center mb-4">
                 <span id="modal-mem-badge" class="px-3 py-1 rounded-full bg-pastel-100 text-pastel-600 text-xs font-bold">Chapter 01</span>
                 <button type="button" onclick="closeMemoryModal()" class="w-8 h-8 rounded-full bg-pastel-50 hover:bg-pastel-100 text-pastel-subtext flex items-center justify-center cursor-pointer">
@@ -569,46 +550,14 @@
     </div>
 
     <!-- ========================================================= -->
-    <!-- Modal 2: ตั้งค่าวันที่เริ่มคบกัน -->
-    <!-- ========================================================= -->
-    <div id="date-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-pastel-text/40 backdrop-blur-sm" onclick="if(event.target === this) closeDateModal()">
-        <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl border-2 border-pastel-200">
-            <div class="flex justify-between items-center mb-4">
-                <h3 class="text-lg font-bold text-pastel-text flex items-center gap-2">
-                    <i class="fa-solid fa-calendar-heart text-pastel-500"></i>
-                    <span>ตั้งค่าวันที่เริ่มคบกัน</span>
-                </h3>
-                <button type="button" onclick="closeDateModal()" class="w-8 h-8 rounded-full bg-pastel-50 hover:bg-pastel-100 text-pastel-subtext flex items-center justify-center cursor-pointer">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
-            </div>
-            <p class="text-xs text-pastel-subtext mb-4">
-                ค่าเริ่มต้นถูกตั้งไว้ให้ตรงกับ <b>3 ปี 3 เดือน</b> พอดี แต่คุณสามารถเลือกวันที่เริ่มคบจริงของคุณได้ด้านล่างนี้ครับ
-            </p>
-            <div class="mb-5">
-                <label class="block text-xs font-semibold text-pastel-text mb-1.5">เลือกวันที่และเวลาเริ่มต้น:</label>
-                <input type="datetime-local" id="custom-start-date" class="w-full px-4 py-2.5 rounded-xl border border-pastel-200 focus:outline-none focus:border-pastel-500 text-sm text-pastel-text bg-pastel-50/50">
-            </div>
-            <div class="flex gap-2">
-                <button type="button" onclick="resetToDefault3Y3M()" class="flex-1 py-2.5 bg-pastel-100 hover:bg-pastel-200 text-pastel-600 font-medium text-xs sm:text-sm rounded-xl transition-colors cursor-pointer">
-                    รีเซ็ต 3 ปี 3 เดือน
-                </button>
-                <button type="button" onclick="saveCustomDate()" class="flex-1 py-2.5 bg-pastel-500 hover:bg-pastel-600 text-white font-semibold text-xs sm:text-sm rounded-xl transition-colors cursor-pointer">
-                    บันทึกวันที่
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- ========================================================= -->
-    <!-- JavaScript Logic -->
+    <!-- JavaScript Logic (ครบถ้วน 100%) -->
     <!-- ========================================================= -->
     <script>
         // ---------------------------------------------------------
-        // 1. ระบบพื้นหลังฟองสบู่และหัวใจสีฟ้าขาวลอยละล่อง (Canvas)
+        // 1. พื้นหลังแอนิเมชันฟองสบู่และหัวใจสีฟ้าพาสเทล (Canvas)
         // ---------------------------------------------------------
         const canvas = document.getElementById('bg-canvas');
-        const ctx = canvas.getContext('2d');
+        const ctx = canvas ? canvas.getContext('2d') : null;
         let particles = [];
 
         function resizeCanvas() {
@@ -619,44 +568,42 @@
         window.addEventListener('resize', resizeCanvas);
         resizeCanvas();
 
-        class Particle {
+        class PastelParticle {
             constructor() {
                 this.reset(true);
             }
             reset(initial = false) {
-                this.x = Math.random() * canvas.width;
-                this.y = initial ? Math.random() * canvas.height : canvas.height + 20;
-                this.size = Math.random() * 12 + 6;
-                this.speedY = Math.random() * 0.8 + 0.3;
-                this.speedX = (Math.random() - 0.5) * 0.5;
-                this.opacity = Math.random() * 0.5 + 0.2;
+                const w = canvas ? canvas.width : window.innerWidth;
+                const h = canvas ? canvas.height : window.innerHeight;
+                this.x = Math.random() * w;
+                this.y = initial ? Math.random() * h : h + 30;
+                this.size = Math.random() * 16 + 8;
+                this.speedY = Math.random() * 0.7 + 0.3;
+                this.speedX = (Math.random() - 0.5) * 0.4;
+                this.opacity = Math.random() * 0.45 + 0.15;
                 this.type = Math.random() > 0.45 ? 'heart' : 'bubble';
-                const colors = ['#80DEEA', '#4DD0E1', '#B2EBF2', '#FFFFFF', '#26C6DA'];
+                const colors = ['#80DEEA', '#4DD0E1', '#B2EBF2', '#FFFFFF', '#A5F3FC'];
                 this.color = colors[Math.floor(Math.random() * colors.length)];
-                this.wobble = Math.random() * Math.PI * 2;
             }
             update() {
                 this.y -= this.speedY;
-                this.wobble += 0.02;
-                this.x += Math.sin(this.wobble) * 0.4 + this.speedX;
+                this.x += this.speedX;
                 if (this.y < -30) {
-                    this.reset();
+                    this.reset(false);
                 }
             }
             draw() {
+                if (!ctx) return;
                 ctx.save();
                 ctx.globalAlpha = this.opacity;
                 ctx.fillStyle = this.color;
-                ctx.strokeStyle = '#FFFFFF';
 
                 if (this.type === 'bubble') {
                     ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.size / 1.5, 0, Math.PI * 2);
+                    ctx.arc(this.x, this.y, this.size / 2, 0, Math.PI * 2);
                     ctx.fill();
-                    ctx.lineWidth = 1.5;
-                    ctx.stroke();
                 } else {
-                    const s = this.size * 0.7;
+                    const s = this.size * 0.6;
                     ctx.translate(this.x, this.y);
                     ctx.beginPath();
                     ctx.moveTo(0, s / 4);
@@ -672,13 +619,14 @@
 
         function initParticles() {
             particles = [];
-            const count = window.innerWidth < 640 ? 25 : 45;
+            const count = Math.min(35, Math.floor(window.innerWidth / 25));
             for (let i = 0; i < count; i++) {
-                particles.push(new Particle());
+                particles.push(new PastelParticle());
             }
         }
 
         function animateParticles() {
+            if (!ctx || !canvas) return;
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             particles.forEach(p => {
                 p.update();
@@ -688,57 +636,52 @@
         }
 
         // ---------------------------------------------------------
-        // 2. หน้าจอต้อนรับแบบซองจดหมาย (Envelope Transition)
+        // 2. เปิดซองจดหมายหน้าแรก (Envelope Opening)
         // ---------------------------------------------------------
         let isEnvelopeOpened = false;
 
-        function openEnvelope(event) {
-            if (event) {
-                event.preventDefault();
-            }
+        function openEnvelope() {
             if (isEnvelopeOpened) return;
             isEnvelopeOpened = true;
 
             const envelope = document.getElementById('envelope');
+            const welcomeScreen = document.getElementById('welcome-screen');
+            const mainContent = document.getElementById('main-content');
+
             if (envelope) {
                 envelope.classList.add('open');
             }
 
-            // เริ่มเล่นเสียงกล่องดนตรีเบาๆ (ห่อด้วย try/catch เพื่อไม่ให้บล็อกการเปิดซองหากเบราว์เซอร์จำกัดเสียง)
+            // เริ่มเล่นเสียงเพลงคลอเบาๆ อัตโนมัติ (ถ้าเบราว์เซอร์อนุญาต)
             try {
                 if (!isPlayingMusic) {
                     toggleMusic();
                 }
-            } catch (e) {
-                console.warn('Audio init skipped:', e);
-            }
+            } catch (e) {}
 
             setTimeout(() => {
-                const welcomeScreen = document.getElementById('welcome-screen');
-                const mainContent = document.getElementById('main-content');
-
                 if (welcomeScreen) {
                     welcomeScreen.style.opacity = '0';
                     welcomeScreen.style.pointerEvents = 'none';
                 }
                 if (mainContent) {
                     mainContent.classList.remove('hidden');
+                    setTimeout(() => {
+                        mainContent.style.opacity = '1';
+                        startTypewriter();
+                    }, 50);
                 }
 
                 setTimeout(() => {
                     if (welcomeScreen) {
                         welcomeScreen.style.display = 'none';
                     }
-                    if (mainContent) {
-                        mainContent.style.opacity = '1';
-                    }
-                    startTypewriter();
-                }, 650);
+                }, 700);
             }, 950);
         }
 
         // ---------------------------------------------------------
-        // 3. ตัวนับเวลาที่คบกันแบบเรียลไทม์ (Real-time Counter)
+        // 3. ตัวนับเวลาที่คบกันมาแบบเรียลไทม์
         // ---------------------------------------------------------
         function getDefault3Y3MDate() {
             const now = new Date();
@@ -746,24 +689,13 @@
                 now.getFullYear() - 3,
                 now.getMonth() - 3,
                 now.getDate(),
-                now.getHours(),
-                now.getMinutes(),
+                0,
+                0,
                 0
             );
         }
 
-        let relationshipStartDate = getDefault3Y3MDate();
-
-        function formatThaiDate(date) {
-            const months = [
-                "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน",
-                "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"
-            ];
-            const d = date.getDate();
-            const m = months[date.getMonth()];
-            const y = date.getFullYear() + 543;
-            return `${d} ${m} พ.ศ. ${y}`;
-        }
+        const relationshipStartDate = getDefault3Y3MDate();
 
         function updateCounter() {
             const now = new Date();
@@ -802,49 +734,32 @@
                 years--;
             }
 
-            document.getElementById('count-years').textContent = years;
-            document.getElementById('count-months').textContent = months;
-            document.getElementById('count-days').textContent = days;
-            document.getElementById('count-hours').textContent = String(hours).padStart(2, '0');
-            document.getElementById('count-minutes').textContent = String(minutes).padStart(2, '0');
-            document.getElementById('count-seconds').textContent = String(seconds).padStart(2, '0');
+            const yearsEl = document.getElementById('count-years');
+            const monthsEl = document.getElementById('count-months');
+            const daysEl = document.getElementById('count-days');
+            const hoursEl = document.getElementById('count-hours');
+            const minutesEl = document.getElementById('count-minutes');
+            const secondsEl = document.getElementById('count-seconds');
+
+            if (yearsEl) yearsEl.textContent = years;
+            if (monthsEl) monthsEl.textContent = months;
+            if (daysEl) daysEl.textContent = days;
+            if (hoursEl) hoursEl.textContent = String(hours).padStart(2, '0');
+            if (minutesEl) minutesEl.textContent = String(minutes).padStart(2, '0');
+            if (secondsEl) secondsEl.textContent = String(seconds).padStart(2, '0');
 
             const diffTime = Math.abs(now - start);
             const totalDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-            document.getElementById('total-days-badge').textContent = `รวมทั้งหมด ${totalDays.toLocaleString()} วันแห่งความรักและความผูกพัน 🩵`;
-            document.getElementById('start-date-display').textContent = `เริ่มต้นตั้งแต่วันที่: ${formatThaiDate(start)}`;
-        }
+            const totalHours = Math.floor(diffTime / (1000 * 60 * 60));
 
-        function openDateModal() {
-            const modal = document.getElementById('date-modal');
-            const input = document.getElementById('custom-start-date');
-            const tzOffset = relationshipStartDate.getTimezoneOffset() * 60000;
-            const localISOTime = (new Date(relationshipStartDate - tzOffset)).toISOString().slice(0, 16);
-            input.value = localISOTime;
-
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-        }
-
-        function closeDateModal() {
-            const modal = document.getElementById('date-modal');
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-        }
-
-        function saveCustomDate() {
-            const inputVal = document.getElementById('custom-start-date').value;
-            if (inputVal) {
-                relationshipStartDate = new Date(inputVal);
-                updateCounter();
+            const totalDaysEl = document.getElementById('total-days-badge');
+            const totalHoursEl = document.getElementById('total-hours-badge');
+            if (totalDaysEl) {
+                totalDaysEl.textContent = `รวมทั้งหมด ${totalDays.toLocaleString()} วันแห่งความรัก 🩵`;
             }
-            closeDateModal();
-        }
-
-        function resetToDefault3Y3M() {
-            relationshipStartDate = getDefault3Y3MDate();
-            updateCounter();
-            closeDateModal();
+            if (totalHoursEl) {
+                totalHoursEl.textContent = `หรือ ${totalHours.toLocaleString()} ชั่วโมงที่อยู่ด้วยกัน ⏰💙`;
+            }
         }
 
         // ---------------------------------------------------------
@@ -870,19 +785,29 @@
 
         function showMemoryModal(index) {
             const mem = memoriesData[index];
-            document.getElementById('modal-mem-badge').textContent = mem.badge;
-            document.getElementById('modal-mem-title').textContent = mem.title;
-            document.getElementById('modal-mem-desc').textContent = mem.desc;
+            if (!mem) return;
 
+            const badgeEl = document.getElementById('modal-mem-badge');
+            const titleEl = document.getElementById('modal-mem-title');
+            const descEl = document.getElementById('modal-mem-desc');
             const modal = document.getElementById('memory-modal');
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
+
+            if (badgeEl) badgeEl.textContent = mem.badge;
+            if (titleEl) titleEl.textContent = mem.title;
+            if (descEl) descEl.textContent = mem.desc;
+
+            if (modal) {
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+            }
         }
 
         function closeMemoryModal() {
             const modal = document.getElementById('memory-modal');
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
+            if (modal) {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }
         }
 
         function uploadPhoto(event, index) {
@@ -900,7 +825,7 @@
         }
 
         // ---------------------------------------------------------
-        // 5. เอฟเฟกต์พิมพ์ดีดจดหมายรัก (Typewriter Love Letter)
+        // 5. เอฟเฟกต์พิมพ์ดีดจดหมายรัก
         // ---------------------------------------------------------
         const loveLetterContent = `สุขสันต์วันครบรอบ 3 ปี 3 เดือนนะคนดีของเค้า 💙\n\nเผลอแป๊บเดียวเราก็เดินทางด้วยกันมาถึงเดือนที่ 39 แล้ว ขอบคุณสำหรับทุกความเข้าใจ ทุกอ้อมกอด และทุกความห่วงใยที่มีให้กันเสมอมา ไม่ว่าวันไหนจะเหนื่อยหรือเจอกับเรื่องอะไร แค่มีเธออยู่ข้างๆ โลกทั้งใบก็สดใสขึ้นมาทันที\n\nขอให้หลังจากนี้เราจับมือกันแน่นๆ แบบนี้ไปเรื่อยๆ มีความสุขด้วยกันในทุกๆ วัน และสร้างความทรงจำสีฟ้าที่แสนอบอุ่นด้วยกันตลอดไปนะ 🩵✨`;
 
@@ -930,7 +855,7 @@
         }
 
         // ---------------------------------------------------------
-        // 6. ปุ่มส่งความรัก & หัวใจลอยขึ้นฟ้า (Interactive Love Burst)
+        // 6. ปุ่มส่งความรัก & หัวใจลอยขึ้นฟ้า
         // ---------------------------------------------------------
         const sweetQuotes = [
             "\"3 ปี 3 เดือนแล้วนะ ขอบคุณที่เป็นความสบายใจให้กันทุกวันเลย 🩵\"",
@@ -945,15 +870,20 @@
 
         function sendLoveBurst() {
             loveCount++;
-            document.getElementById('love-counter').textContent = loveCount.toLocaleString();
+            const counterEl = document.getElementById('love-counter');
+            if (counterEl) {
+                counterEl.textContent = loveCount.toLocaleString();
+            }
 
             const quoteEl = document.getElementById('love-quote-text');
-            const randomQuote = sweetQuotes[Math.floor(Math.random() * sweetQuotes.length)];
-            quoteEl.style.opacity = '0';
-            setTimeout(() => {
-                quoteEl.textContent = randomQuote;
-                quoteEl.style.opacity = '1';
-            }, 180);
+            if (quoteEl) {
+                const randomQuote = sweetQuotes[Math.floor(Math.random() * sweetQuotes.length)];
+                quoteEl.style.opacity = '0';
+                setTimeout(() => {
+                    quoteEl.textContent = randomQuote;
+                    quoteEl.style.opacity = '1';
+                }, 180);
+            }
 
             const heartEmojis = ['💙', '🩵', '🤍', '✨', '☁️'];
             for (let i = 0; i < 14; i++) {
@@ -981,12 +911,11 @@
         let musicInterval = null;
         let noteStep = 0;
 
-        // ทำนองเพลงกล่องดนตรีโทนอบอุ่น (C Major Pentatonic / Lullaby)
         const melodyNotes = [
-            523.25, 659.25, 783.99, 659.25, // C5 E5 G5 E5
-            587.33, 698.46, 880.00, 698.46, // D5 F5 A5 F5
-            523.25, 659.25, 783.99, 1046.50,// C5 E5 G5 C6
-            987.77, 783.99, 659.25, 587.33  // B5 G5 E5 D5
+            523.25, 659.25, 783.99, 659.25,
+            587.33, 698.46, 880.00, 698.46,
+            523.25, 659.25, 783.99, 1046.50,
+            987.77, 783.99, 659.25, 587.33
         ];
 
         function playMusicBoxNote(freq) {
@@ -1008,9 +937,7 @@
 
                 osc.start(now);
                 osc.stop(now + 1.45);
-            } catch (e) {
-                // ป้องกันข้อผิดพลาดหาก AudioContext ถูกระงับ
-            }
+            } catch (e) {}
         }
 
         function toggleMusic() {
@@ -1029,8 +956,8 @@
                 }
 
                 isPlayingMusic = true;
-                icon.className = 'fa-solid fa-music text-pastel-500 text-lg animate-bounce';
-                label.textContent = 'กำลังเล่นเพลง';
+                if (icon) icon.className = 'fa-solid fa-music text-pastel-500 text-lg animate-bounce';
+                if (label) label.textContent = 'กำลังเล่นเพลง';
 
                 playMusicBoxNote(melodyNotes[noteStep % melodyNotes.length]);
                 noteStep++;
@@ -1042,8 +969,8 @@
             } else {
                 isPlayingMusic = false;
                 clearInterval(musicInterval);
-                icon.className = 'fa-solid fa-volume-xmark text-pastel-500 text-lg';
-                label.textContent = 'เปิดเพลงคลอ';
+                if (icon) icon.className = 'fa-solid fa-volume-xmark text-pastel-500 text-lg';
+                if (label) label.textContent = 'เปิดเพลงคลอ';
             }
         }
 
@@ -1056,26 +983,14 @@
             updateCounter();
             setInterval(updateCounter, 1000);
 
-            // ผูก Event Listener ทั้ง click และ keydown สำหรับการเปิดซองจดหมาย
             const envelopeTrigger = document.getElementById('envelope-trigger');
-            const openBtn = document.getElementById('open-envelope-btn');
-            const musicBtn = document.getElementById('music-toggle-btn');
-
             if (envelopeTrigger) {
-                envelopeTrigger.addEventListener('click', openEnvelope);
                 envelopeTrigger.addEventListener('keydown', (e) => {
                     if (e.key === 'Enter' || e.key === ' ') {
-                        openEnvelope(e);
+                        e.preventDefault();
+                        openEnvelope();
                     }
                 });
-            }
-
-            if (openBtn) {
-                openBtn.addEventListener('click', openEnvelope);
-            }
-
-            if (musicBtn) {
-                musicBtn.addEventListener('click', toggleMusic);
             }
         });
     </script>
